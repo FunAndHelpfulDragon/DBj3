@@ -2,7 +2,9 @@ import discord
 import os
 from discord.ext import commands
 
-client = commands.Bot(command_prefix="!")
+intents = discord.Intents.default()
+intents.members = True
+client = commands.Bot(command_prefix="!", intents=intents)
 
 
 @client.event
@@ -46,7 +48,7 @@ async def _Reload(ctx, extension=None):
         await ctx.send(f"Reloaded {extension}")
     else:
         for Cog in os.listdir("./Cogs"):
-            if Cog != "__pycache__" or Cog != ".DS_Store":  # add no cogs here
+            if Cog != "__pycache__" and Cog != ".DS_Store":  # add no cogs here
                 client.unload_extension(f'Cogs.{Cog[:-3]}')
                 client.load_extension(f'Cogs.{Cog[:-3]}')
         await ctx.send("Reloaded cogs")
@@ -88,13 +90,12 @@ async def ListCogs_Fail_Error(ctx, error):
 
 
 # loads all cogs on startup
-if __name__ == '__name__':
+if __name__ == '__main__':
     for cog in os.listdir("./Cogs"):
         if cog != "__pycache__" and cog != ".DS_Store":
             client.load_extension(f"Cogs.{cog[:-3]}")
 
-
-# Loads and runs bot
-with open("Token.txt") as f:
-    Token = f.read()
-client.run(Token)
+    # Loads and runs bot
+    with open("Token.txt") as f:
+        Token = f.read()
+    client.run(Token)
