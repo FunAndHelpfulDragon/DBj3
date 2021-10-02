@@ -12,7 +12,8 @@ class Admins(commands.Cog):
         print("Admin cog loading")
 
     @commands.command(
-        help="Add a user as an bot admin."
+        help="Add a user as an bot admin.",
+        usage="Ping a member as well to add them as admin"
     )
     async def addAdmin(self, ctx, member: discord.Member):
         if path.exists(f"Files/{ctx.guild.id}/Admins.txt"):
@@ -40,7 +41,8 @@ class Admins(commands.Cog):
                     await ctx.send(f"Added {member.mention} as an admin")
 
     @commands.command(
-        help="Remove a user as an bot admin"
+        help="Remove a user as an bot admin",
+        usage="Ping a member as well to remove them as admin"
     )
     async def removeAdmin(self, ctx, member: discord.Member):
         if path.exists(f"Files/{ctx.guild.id}/Admins.txt"):
@@ -75,7 +77,8 @@ class Admins(commands.Cog):
             await ctx.send("Made Admins.txt file")
 
     @commands.command(
-        help="Lists all admins in file"
+        help="Lists all admins in file",
+        usage=""
     )
     async def listAdmins(self, ctx):
         embed = discord.Embed()
