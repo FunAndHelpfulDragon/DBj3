@@ -13,7 +13,8 @@ class Admins(commands.Cog):
 
     @commands.command(
         help="Add a user as an bot admin.",
-        usage="Ping a member as well to add them as admin"
+        usage="Ping a member as well to add them as admin",
+        aliases=["addadmin", "AddAdmin", "MkAdmin", "mkadmin"]
     )
     async def addAdmin(self, ctx, member: discord.Member):
         if path.exists(f"Files/{ctx.guild.id}/Admins.txt"):
@@ -42,7 +43,8 @@ class Admins(commands.Cog):
 
     @commands.command(
         help="Remove a user as an bot admin",
-        usage="Ping a member as well to remove them as admin"
+        usage="Ping a member as well to remove them as admin",
+        aliases=["RemoveAdmin", "removeadmin", "RmAdmin", "rmadmin"]
     )
     async def removeAdmin(self, ctx, member: discord.Member):
         if path.exists(f"Files/{ctx.guild.id}/Admins.txt"):
@@ -78,7 +80,8 @@ class Admins(commands.Cog):
 
     @commands.command(
         help="Lists all admins in file",
-        usage=""
+        usage="",
+        aliases=["listadmins", "ListAdmins", "Admins", "admins"]
     )
     async def listAdmins(self, ctx):
         embed = discord.Embed()

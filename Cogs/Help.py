@@ -23,7 +23,7 @@ class Help(commands.Cog):
             for command in self.client.get_cog(cog).get_commands():
                 if command.enabled and not command.hidden:
                     Embed.add_field(
-                        name=f"{command.name} [{command.aliases}]",
+                        name=f"{command.name} {command.aliases}",
                         value=f"Help: {command.help},\n" +
                              f"Usage: {command.usage}"
                     )
