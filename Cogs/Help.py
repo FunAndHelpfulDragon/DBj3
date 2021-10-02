@@ -9,7 +9,8 @@ class Help(commands.Cog):
 
     @commands.command(
         help="Help?",
-        usage=""
+        usage="",
+        aliases=["help"]
     )
     async def Help(self, ctx):
         pages = []
@@ -30,9 +31,9 @@ class Help(commands.Cog):
                     Embed.set_footer(
                         text="[] = aliases (other ways to use command)"
                     )
-                    if str(Embed.fields) != str([]):
-                        pages.append(Embed)
-
+            if str(Embed.fields) != str([]):
+                pages.append(Embed)
+        print(pages)
         msg = await ctx.send(embed=pages[self.Page])
         if self.Page > 0:
             await msg.add_reaction("⬅️")  # add reactions (if conditions meet)
@@ -82,6 +83,23 @@ class Help(commands.Cog):
             await msg.remove_reaction("⬅️", msg.author)
             await msg.remove_reaction("➡️", msg.author)
             await msg.remove_reaction("❌", msg.author)
+
+    @commands.command(
+        help="makers of the bot",
+        usage="",
+        aliases=["credit"]
+    )
+    async def Credit(self, ctx):
+        embed = discord.Embed(
+            title="Credits",
+            colour=discord.Colour.random()
+        )
+        embed.add_field(
+            name="Dragmine149#5048",
+            value="Maker of the bot"
+        )
+        embed.set_footer(text="Thank you for testing out this bot that was made in a week")  # noqa
+        await ctx.send(embed=embed)
 
 
 def setup(client):
