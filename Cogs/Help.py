@@ -6,6 +6,7 @@ from discord.ext import commands
 class Help(commands.Cog):
     def __init__(self, client):
         self.client = client
+        print("help cog loaded")
 
     @commands.command(
         help="Help?",
@@ -60,13 +61,16 @@ class Help(commands.Cog):
                     try:
                         await msg.edit(embed=pages[self.Page])  # edits with new  # noqa
                     except IndexError:
+                        broke = False
                         if self.Page > len(pages):
                             self.Page = len(pages)
                         elif self.Page < 0:
                             self.Page = 0
                         else:
                             await ctx.send("how? how did you break this?")
-                        await msg.edit(embed=pages[self.Page])
+                            broke = True
+                        if not broke:
+                            await msg.edit(embed=pages[self.Page])
                     if self.Page > 0:  # more reactions
                         await msg.add_reaction("⬅️")
                     else:
