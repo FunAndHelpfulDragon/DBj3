@@ -39,7 +39,7 @@ async def on_guild_join(guild):
     if not os.path.exists(f"Files/{guild.id}"):
         os.system(f"mkdir Files/{guild.id}")
         async with aiofiles.open(f"Files/{guild.id}/Admins.txt", 'a') as a:  # noqa
-            await a.write(str(guild.owner.mention))
+            await a.write(str(guild.owner.mention) + ",")
 
 
 @client.event
