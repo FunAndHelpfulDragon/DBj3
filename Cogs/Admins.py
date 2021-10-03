@@ -1,7 +1,7 @@
 import discord
 import aiofiles
 from discord.ext import commands
-from discord.ext.commands import has_permissions
+from discord.ext.commands import has_permissions  # noqa
 from os import path
 import os
 
@@ -94,9 +94,10 @@ class Admins(commands.Cog):
         aliases=["setup"]
     )
     async def Setup(self, ctx):
-        os.system(f"mkdir Files/{ctx.guild.id}")
-        async with aiofiles.open(f"Files/{guild.id}/Admins.txt", 'w') as w:  # noqa
-            await w.write(str(ctx.guild.owner.mention) + ",")
+        if ctx.author == ctx.guild.owner:
+            os.system(f"mkdir Files/{ctx.guild.id}")
+            async with aiofiles.open(f"Files/{guild.id}/Admins.txt", 'w') as w:  # noqa
+                await w.write(str(ctx.guild.owner.mention) + ",")
 
     @addAdmin.error
     async def addAdmin_error(self, ctx, error):
