@@ -1,6 +1,7 @@
 import discord
 import os
 from discord.ext import commands
+import aiofiles
 
 intents = discord.Intents.default()
 intents.members = True
@@ -11,6 +12,42 @@ client.remove_command('help')
 @client.event
 async def on_ready():
     print("Bot is ready")
+
+
+@client.event
+async def on_guild_join(guild):
+    print(f"Joined guild: {guild.name}")
+    for channel in guild.text_channels:
+        if channel.permissions_for(guild.me).send_messages:
+            embed = discord.Embed(
+                name="Welcome",
+                title="Welcome",
+                description="Thank you for inviting me",
+                colour=discord.Colour.random()
+            )
+            embed.add_field(
+                name="Information about me!",
+                value="I am a bot made for the discord bot jam 3 (itch.io/jam/dbj3) along the theme of security." +  # noqa
+                      "\n All of my commands are found in !help and the developers of me are found in !credit"  # noqa
+            )
+            embed.add_field(
+                name="How to get started?",
+                value="No setup is required, the nessecary things have already been setup"  # noqa
+            )
+            await channel.send(embed=embed)
+            break
+    if not os.path.exists(f"Files/{guild.id}"):
+        os.system(f"mkdir Files/{guild.id}")
+        async with aiofiles.open(f"Files/{guild.id}/Admins.txt", 'a') as a:  # noqa
+            await a.write(str(guild.owner.mention))
+
+
+@client.event
+async def on_guild_remove(guild):
+    print(f"Left guild: {guild.name}")
+    # cleanup, the bot left why do we need the files?
+    os.system(f"rm Files/{guild.id}/Admins.txt")
+    os.system(f"rmdir Files/{guild.id}")
 
 
 # Commands for cogs
