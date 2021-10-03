@@ -34,6 +34,9 @@ async def on_guild_join(guild):
                 name="How to get started?",
                 value="No setup is required, the nessecary things have already been setup"  # noqa
             )
+            embed.set_footer(
+                value="Want to invite me? Do so here: https://discord.com/api/oauth2/authorize?client_id=893794121905471499&permissions=8&scope=bot"  # noqa
+            )
             await channel.send(embed=embed)
             break
     if not os.path.exists(f"Files/{guild.id}"):

@@ -101,6 +101,14 @@ class Help(commands.Cog):
         embed.set_footer(text="Thank you for testing out this bot that was made in a week")  # noqa
         await ctx.send(embed=embed)
 
+    @commands.command(
+        help="Invite me",
+        usage="",
+        aliases=["invite"]
+    )
+    async def Invite(self, ctx):
+        await ctx.send("Invite me here: https://discord.com/api/oauth2/authorize?client_id=893794121905471499&permissions=8&scope=bot")  # noqa
+
 
 def setup(client):
     client.add_cog(Help(client))
