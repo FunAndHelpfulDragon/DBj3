@@ -44,7 +44,7 @@ class Help(commands.Cog):
         await msg.add_reaction("❌")
 
         def check(reaction, user):  # check for reactions
-            if not user.bot and reaction.message == msg:
+            if not user.bot and reaction.message.id == msg.id:
                 if str(reaction.emoji) == "⬅️":
                     self.Page -= 1
                 elif str(reaction.emoji) == "➡️":
