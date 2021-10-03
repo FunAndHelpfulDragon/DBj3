@@ -69,6 +69,8 @@ class Admins(commands.Cog):
                         await ctx.send(f"Removed {member.mention} from Admins.txt")  # noqa
                 else:
                     await ctx.send(f"{ctx.author.mention}! You are not a trusted admin")  # noqa
+        else:
+            await ctx.send("File not found! please reinvite me or ping my owner")  # noqa
 
     @commands.command(
         help="Lists all admins in file",
@@ -85,6 +87,30 @@ class Admins(commands.Cog):
                 inline=False
             )
         await ctx.send(embed=embed)
+
+    @commands.command(
+        help="Setup the admin.txt file",
+        usage="",
+        aliases=["setup"]
+    )
+    async def Setup(self, ctx):
+        os.system(f"mkdir Files/{ctx.guild.id}")
+        async with aiofiles.open(f"Files/{guild.id}/Admins.txt", 'w') as w:  # noqa
+            await w.write(str(ctx.guild.owner.mention) + ",")
+
+    @addAdmin.error
+    async def addAdmin_error(self, ctx, error):
+        if isinstance(error, commands.MissingRequiredArgument):
+            await ctx.send(f"Missing argument: {error.param}")
+        else:
+            await ctx.send(f"Error: {error}")
+
+    @removeAdmin.error
+    async def removeAdmin_error(self, ctx, error):
+        if isinstance(error, commands.MissingRequiredArgument):
+            await ctx.send(f"Missing argument: {error.param}")
+        else:
+            await ctx.send(f"Error: {error}")
 
 
 def setup(client):
