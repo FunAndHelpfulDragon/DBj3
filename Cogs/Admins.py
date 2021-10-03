@@ -91,9 +91,9 @@ class Admins(commands.Cog):
     @commands.command(
         help="Setup the admin.txt file",
         usage="",
-        aliases=["setup"]
+        aliases=["adminsetup", "adsetup", "AdminSetup", "AdSetup"]
     )
-    async def Setup(self, ctx):
+    async def Adminsetup(self, ctx):
         if ctx.author == ctx.guild.owner:
             os.system(f"mkdir Files/{ctx.guild.id}")
             async with aiofiles.open(f"Files/{guild.id}/Admins.txt", 'w') as w:  # noqa
@@ -115,5 +115,4 @@ class Admins(commands.Cog):
 
 
 def setup(client):
-    print("setup?")
     client.add_cog(Admins(client))
