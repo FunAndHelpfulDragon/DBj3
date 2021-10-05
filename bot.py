@@ -2,11 +2,13 @@ import discord
 import os
 from discord.ext import commands
 import aiofiles
+from dislash import InteractionClient
 
 intents = discord.Intents.default()
 intents.members = True
 client = commands.Bot(command_prefix="!", intents=intents)
 client.remove_command('help')
+inter_client = InteractionClient(client, test_guilds=[686177483430952970])
 
 
 @client.event
@@ -35,7 +37,7 @@ async def on_guild_join(guild):
                 value="No setup is required, the nessecary things have already been setup"  # noqa
             )
             embed.set_footer(
-                value="Want to invite me? Do so here: https://discord.com/api/oauth2/authorize?client_id=893794121905471499&permissions=8&scope=bot"  # noqa
+                text="Want to invite me? Do so here: https://discord.com/api/oauth2/authorize?client_id=893794121905471499&permissions=8&scope=bot"  # noqa
             )
             await channel.send(embed=embed)
             break
