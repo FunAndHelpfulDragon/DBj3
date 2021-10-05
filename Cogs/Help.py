@@ -57,7 +57,8 @@ class Help(commands.Cog):
                 label = [option.label for option in response.select_menu.selected_options][0]  # noqa
                 if label == "Quit":
                     self.Page = -1
-                await response.reply("You can dismiss this response, this is to make sure you don't get an interaction failed error", ephemeral=True)  # noqa
+                # await response.reply("You can dismiss this response, this is to make sure you don't get an interaction failed error", ephemeral=True)  # noqa
+                await response.reply("", ephemeral=True)  # noqa
                 pageNo = 0
                 for page in pages:
                     if page.title == label:
@@ -83,7 +84,11 @@ class Help(commands.Cog):
             name="Dragmine149#5048",
             value="Maker of the bot"
         )
-        embed.set_footer(text="Thank you for testing out this bot that was made in a week")  # noqa
+        # embed.add_field(
+        #     name="Dqrkxz#8752",
+        #     value="Bot tester"
+        # )
+        embed.set_footer(text="Thank you for usingthis bot that was made in a week for dbj3")  # noqa
         await ctx.send(embed=embed)
 
     @commands.command(

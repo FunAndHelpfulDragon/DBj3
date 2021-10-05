@@ -6,8 +6,10 @@ from dislash import InteractionClient
 
 intents = discord.Intents.default()
 intents.members = True
+
 client = commands.Bot(command_prefix="+", intents=intents)
 client.remove_command('help')
+
 inter_client = InteractionClient(client, test_guilds=[686177483430952970])
 
 
@@ -32,13 +34,9 @@ async def on_guild_join(guild):
                 value="I am a bot made for the discord bot jam 3 (itch.io/jam/dbj3) along the theme of security." +  # noqa
                       "\n All of my commands are found in !help and the developers of me are found in !credit"  # noqa
             )
-            embed.add_field(
-                name="How to get started?",
-                value="No setup is required, the nessecary things have already been setup"  # noqa
-            )
-            embed.set_footer(
-                text="Want to invite me? Do so here: https://discord.com/api/oauth2/authorize?client_id=893794121905471499&permissions=8&scope=bot"  # noqa
-            )
+            # embed.set_footer(
+            #     text="Want to invite me? Do so here: https://discord.com/api/oauth2/authorize?client_id=893794121905471499&permissions=8&scope=bot"  # noqa
+            # )
             await channel.send(embed=embed)
             break
     if not os.path.exists(f"Files/{guild.id}"):
@@ -95,41 +93,6 @@ async def _Reload(ctx, extension=None):
                 client.unload_extension(f'Cogs.{Cog[:-3]}')
                 client.load_extension(f'Cogs.{Cog[:-3]}')
         await ctx.send("Reloaded cogs")
-
-
-@client.command(
-    description="List all cogs (not limited)",
-    aliases=['ListCogs', 'List'],
-    hidden=True
-)
-@commands.is_owner()
-async def _ListCogs(ctx):  # no need to check as it can't do anything.
-    await ctx.send("Cogs in folder: ")
-    for filename in os.listdir("./Cogs"):
-        if filename != "__pycache__" or filename == ".DS_Store":  # add no cogs
-            await ctx.send(filename[:-3])
-
-
-# error checking
-# XXX: make it so that we know the cog that failed to load.
-@_Load.error
-async def Load_Fail_Error(ctx, error):
-    print(error)
-
-
-@_UnLoad.error
-async def UnLoad_Fail_Error(ctx, error):
-    print(error)
-
-
-@_Reload.error
-async def Reload_Fail_Error(ctx, error):
-    print(error)
-
-
-@_ListCogs.error
-async def ListCogs_Fail_Error(ctx, error):
-    print(error)
 
 
 # loads all cogs on startup
