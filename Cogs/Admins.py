@@ -96,8 +96,9 @@ class Admins(commands.Cog):
     async def Adminsetup(self, ctx):
         if ctx.author == ctx.guild.owner:
             os.system(f"mkdir Files/{ctx.guild.id}")
-            async with aiofiles.open(f"Files/{guild.id}/Admins.txt", 'w') as w:  # noqa
+            async with aiofiles.open(f"Files/{ctx.guild.id}/Admins.txt", 'w') as w:  # noqa
                 await w.write(str(ctx.guild.owner.mention) + ",")
+            await ctx.send("Finished seting up admin stuff")
 
     @addAdmin.error
     async def addAdmin_error(self, ctx, error):
