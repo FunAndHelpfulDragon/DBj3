@@ -21,12 +21,12 @@ class Admins(commands.Cog):
         if self.File.CheckForFile(f"Files/{ctx.guild.id}/Admins.txt"):
             if await self.File.CheckForAdmin(f"Files/{ctx.guild.id}/Admins.txt", ctx.author.mention) or ctx.author == ctx.guild.owner:  # noqa
                 if await self.File.CheckForAdmin(f"Files/{ctx.guild.id}/Admins.txt", member.mention):  # noqa
-                    await ctx.send(f"{member.mention} is already a trusted admin")  # noqa
+                    await ctx.reply(f"{member.mention} is already a trusted admin")  # noqa
                 else:
                     await self.File.AppendFile(f"Files/{ctx.guild.id}/Admins.txt", str(member.mention) + ",")  # noqa
-                    await ctx.send(f"Added {member.mention} as an admin")  # noqa
+                    await ctx.reply(f"Added {member.mention} as an admin")  # noqa
             else:
-                await ctx.send(f"{ctx.author.mention}! You are not a trusted admin")  # noqa
+                await ctx.reply(f"{ctx.author.mention}! You are not a trusted admin")  # noqa
         else:
             self.File.MakeFile(f"Files/{ctx.guild.id}/Admins.txt", str(ctx.guild.owner.mention) + ",")  # noqa
 
@@ -42,11 +42,11 @@ class Admins(commands.Cog):
                 list = self.File.RemoveValueFromList(await self.File.GetList(f"Files/{ctx.guild.id}/Admins.txt"), Pos)  # noqa
                 string = self.File.MakeListString(list)
                 await self.File.WriteFile(f"Files/{ctx.guild.id}/Admins.txt", string)  # noqa
-                await ctx.send(f"Removed {member.mention} as an admin")
+                await ctx.reply(f"Removed {member.mention} as an admin")
             else:
-                await ctx.send(f"{ctx.author.mention}! You are not a trusted admin")  # noqa
+                await ctx.reply(f"{ctx.author.mention}! You are not a trusted admin")  # noqa
         else:
-            await ctx.send("File not found! please reinvite me or ping my owner")  # noqa
+            await ctx.reply("File not found! please reinvite me or ping my owner")  # noqa
 
     @commands.command(
         help="Lists all admins in file",
@@ -61,9 +61,9 @@ class Admins(commands.Cog):
                 value=await self.File.ReadFile(f"Files/{ctx.guild.id}/Admins.txt"),  # noqa
                 inline=False
             )
-            await ctx.send(embed=embed)
+            await ctx.reply(embed=embed)
         else:
-            await ctx.send("No admins file. Please setup using the `AdminSetup` command")  # noqa
+            await ctx.reply("No admins file. Please setup using the `AdminSetup` command")  # noqa
 
     @commands.command(
         help="Setup the admin.txt file",
@@ -73,23 +73,23 @@ class Admins(commands.Cog):
     async def Adminsetup(self, ctx):
         if ctx.author == ctx.guild.owner:
             self.File.MakeFile(f"Files/{ctx.guild.id}", "Admins.txt", str(ctx.guild.owner.mention) + ",")  # noqa
-            await ctx.send("Setup completed for admin stuff.")
+            await ctx.reply("Setup completed for admin stuff.")
         else:
-            await ctx.send("Only the owner of the server can run this command")
+            await ctx.reply("Only the owner of the server can run this command")
 
     @addAdmin.error
     async def addAdmin_error(self, ctx, error):
         if isinstance(error, commands.MissingRequiredArgument):
-            await ctx.send(f"Missing argument: {error.param}")
+            await ctx.reply(f"Missing argument: {error.param}")
         else:
-            await ctx.send(f"Error: {error}")
+            await ctx.reply(f"Error: {error}")
 
     @removeAdmin.error
     async def removeAdmin_error(self, ctx, error):
         if isinstance(error, commands.MissingRequiredArgument):
-            await ctx.send(f"Missing argument: {error.param}")
+            await ctx.reply(f"Missing argument: {error.param}")
         else:
-            await ctx.send(f"Error: {error}")
+            await ctx.reply(f"Error: {error}")
 
 
 def setup(client):
