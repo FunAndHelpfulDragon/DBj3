@@ -4,7 +4,9 @@ from discord.ext.commands import has_permissions  # noqa
 import asyncio
 import random
 from os import path
-import aiofiles
+import sys
+sys.path.append(path.join(path.dirname(__file__), "../Class"))
+import FileReading  # noqa
 
 
 class Secuirty(commands.Cog):
@@ -12,6 +14,7 @@ class Secuirty(commands.Cog):
         self.client = client
         print("Securly loaded the security cog")
         self.PreSetup = False
+        self.File = FileReading.File()
 
     @commands.command(
         help="Setup",
@@ -19,15 +22,7 @@ class Secuirty(commands.Cog):
         aliases=['setup']
     )
     async def Setup(self, ctx):
-        if path.exists(f"Files/{ctx.guild.id}/Admins.txt"):
-            async with aiofiles.open(f"Files/{ctx.guild.id}/Admins.txt", 'r') as r:  # noqa
-                lines = await r.read()
-                lines = lines.split(",")
-                for line in lines:
-                    if line.strip() == str(ctx.author.mention):
-                        self.PreSetup = True
-                        break
-        if self.PreSetup:
+        if await self.File.CheckForAdmin("Files/{ctx.guild.id}/Admins.txt", ctx.author.mention):  # noqa
             # make a verified role.
             self.Setup = True
             for role in ctx.guild.roles:
@@ -58,23 +53,26 @@ class Secuirty(commands.Cog):
             else:
                 await ctx.reply("Cannot setup server because there is already a role called 'Verified'")  # noqa
         else:
-            await ctx.reply("You are not a bot admin")
+            await ctx.reply("You are not a bot admin!")
 
     @commands.command(
         hidden=True,
         enabled=True
     )
     async def Delete(self, ctx):
-        try:
-            role = discord.utils.get(ctx.guild.roles, name="Verified")
-            await role.delete()
-        except AttributeError:
-            print("AttributeError in deleting role")
-        for channel in ctx.guild.channels:
-            if channel.name == "verify":
-                await channel.delete()
-                break
-        await ctx.send("Deleted verifiecation things")
+        if await self.File.CheckForAdmin("Files/{ctx.guild.id}/Admins.txt", ctx.author.mention):  # noqa
+            try:
+                role = discord.utils.get(ctx.guild.roles, name="Verified")
+                await role.delete()
+            except AttributeError:
+                print("AttributeError in deleting role")
+            for channel in ctx.guild.channels:
+                if channel.name == "verify":
+                    await channel.delete()
+                    break
+            await ctx.send("Deleted verifiecation things")
+        else:
+            await ctx.reply("You are not a bot admin!")
 
     @Setup.error
     async def Setup_Error(self, ctx, error):
