@@ -3,7 +3,6 @@ from discord.ext import commands
 from discord.ext.commands import has_permissions  # noqa
 import asyncio
 import random
-import string
 
 
 class Secuirty(commands.Cog):
