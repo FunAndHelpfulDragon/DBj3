@@ -75,7 +75,7 @@ class Admins(commands.Cog):
             self.File.MakeFile(f"Files/{ctx.guild.id}", "Admins.txt", str(ctx.guild.owner.mention) + ",")  # noqa
             await ctx.reply("Setup completed for admin stuff.")
         else:
-            await ctx.reply("Only the owner of the server can run this command")
+            await ctx.reply("Only the owner of the server can run this command")  # noqa
 
     @addAdmin.error
     async def addAdmin_error(self, ctx, error):
