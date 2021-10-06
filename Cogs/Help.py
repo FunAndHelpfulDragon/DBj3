@@ -15,6 +15,15 @@ class Help(commands.Cog):
         aliases=["Help"]
     )
     async def help(self, ctx):  # noqa
+
+        # These are objects for me to determind what to add to help command
+        # for item in self.client.slash.slash_commands.values():
+        #     print(f"item: {item}")
+        #     print(f"item.name: {item.name}")
+        #     print(f"item._cog_name: {item._cog_name}")
+        #     print(f"item.registerable.description: {item.registerable.description}")  # noqa
+        #     print(f"item.registerable.options: {item.registerable.options}")
+        #     print(f"item.registerable.options[0].description: {item.registerable.options[0].description}")  # noqa
         pages = []
         self.Page = 0
         # Make pages
@@ -30,9 +39,19 @@ class Help(commands.Cog):
                         value=f"Help: {command.help},\n" +
                              f"Usage: {command.usage}"
                     )
-                    Embed.set_footer(
-                        text="[] = aliases (other ways to use command)"
+            for item in self.client.slash.slash_commands.values():
+                if item._cog_name == cog:
+                    options = ""
+                    for option in item.registerable.options:
+                        options = options + f"{option.name}\n"  # noqa
+                    Embed.add_field(
+                        name=f"{item.name} [Slash Command]",
+                        value=f"Help: {item.registerable.description}, \n" +
+                              f"Usage: \n{options}"
                     )
+            Embed.set_footer(
+                text="[] = aliases (other ways to use command)"
+            )
             if str(Embed.fields) != str([]):
                 pages.append(Embed)
 
