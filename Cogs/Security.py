@@ -5,6 +5,7 @@ import asyncio
 import random
 from os import path
 import sys
+from dislash import slash_command, Option, OptionType, ActionRow, Button, ButtonStyle  # noqa
 sys.path.append(path.join(path.dirname(__file__), "../Class"))
 import FileReading  # noqa
 
@@ -163,6 +164,43 @@ class Secuirty(commands.Cog):
                             await ctx.message.delete()
         else:
             await ctx.send("No verification process setup! please contact a bot admin")  # noqa
+
+    @slash_command(
+        description="Send a encrypted message to someone",
+        options=[
+            Option("member", "Enter the user", OptionType.USER, required=True),
+            Option("content", "Enter the content", OptionType.STRING, required=True)  # noqa
+            ]
+        )
+    async def code(self, ctx, member, content):
+        await ctx.reply(f"{content} -> {member.mention}", ephemeral=True)
+        String = ""
+        nconent = content
+        for char in nconent:
+            num = random.randint(0, len(nconent) - 1)
+            String = String + str(num)
+            nconent = nconent.replace(nconent[num], "", 1)
+
+        Buttons = ActionRow(
+            Button(
+                style=ButtonStyle.blurple,
+                label="Decrypt",
+                custom_id="Decrypt"
+            )
+        )
+
+        msg = await ctx.reply(f"{ctx.author.mention} used /code:\n {String}", components=[Buttons])  # noqa
+        seen = False
+        while not seen:
+            inter = await msg.wait_for_button_click()
+            if inter.author == member:
+                await inter.reply(f"DecryptedMessage: {String}.\nMessage: {content}.\nSent by: {ctx.author.mention}", ephemeral=True)  # noqa
+                seen = True
+                await msg.delete()
+            elif inter.author == ctx.author:
+                await inter.reply(f"You are author of message, so here is info you sent:\n{content} -> {member.mention}", ephemeral=True)  # noqa
+            else:
+                await inter.reply("Sorry, the author of the message didn't send it to you", ephemeral=True) # noqa
 
 
 def setup(client):
