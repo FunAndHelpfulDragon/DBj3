@@ -1,5 +1,5 @@
 import discord
-from discord.ext import commands
+from discord.ext import commands, tasks
 from discord.ext.commands import has_permissions  # noqa
 import asyncio
 import random
@@ -16,6 +16,7 @@ class Secuirty(commands.Cog):
         print("Securly loaded the security cog")
         self.PreSetup = False
         self.File = FileReading.File()
+        self.send.start()
 
     @commands.command(
         help="Setup",
@@ -201,6 +202,36 @@ class Secuirty(commands.Cog):
                 await inter.reply(f"You are author of message, so here is info you sent:\n{content} -> {member.mention}", ephemeral=True)  # noqa
             else:
                 await inter.reply("Sorry, the author of the message didn't send it to you", ephemeral=True) # noqa
+
+    @tasks.loop(hours=1.0)
+    async def send(self):
+        print("Sending...")
+        for guild in self.client.guilds:
+            for channel in guild.text_channels:
+                if channel.permissions_for(guild.me).send_messages:
+                    tip = await self.GenSecurityTip()
+                    await channel.send("Security Tip of the hour: \n" + tip)  # noqa
+                    break
+
+    @commands.command(
+        help="Get a Security Tip",
+        usage="",
+        aliases=['tip']
+    )
+    async def Tip(self, ctx):
+        await ctx.reply(await self.GenSecurityTip())
+
+    async def GenSecurityTip(self):
+        PossibleTips = await self.File.ReadLinesFile("Class/SecurityTips.txt")  # noqa
+        return PossibleTips[random.randint(0, len(PossibleTips) - 1)]
+
+    def cog_unload(self):
+        self.send.cancel()
+
+    @send.before_loop
+    async def BeforeSend(self):
+        print('waiting for bot to load')
+        await self.client.wait_until_ready()
 
 
 def setup(client):

@@ -1,0 +1,7 @@
+"Keep software up to date", out of date software doesn't get supported as much as is more vulnerable to hackers
+"Make a strong password", A strong password will reduce the chance of getting hacked.
+"Turn on 2 factor authentication when possible", Having 2FA enabled will reduce the chance of hackers hacking you as they would need something on you to get into your account.
+"Change your password about every 2 months.", Changing your password every two months will reduce the risk of hackers as they would have to guess it every time.
+"If a data breach happens, reset your passwords as soon as possible", Data breaches can leak your password out to anyone, reset them asap to say safe.
+"Don't download everything you see", You don't know what could be a virus or not, be careful what you install.
+"Make backups of your system every now and agin", If you loose data, a backup can help you recover your data.
