@@ -24,7 +24,7 @@ class Secuirty(commands.Cog):
         aliases=['setup']
     )
     async def Setup(self, ctx):
-        if await self.File.CheckForAdmin("Files/{ctx.guild.id}/Admins.txt", ctx.author.mention):  # noqa
+        if await self.File.CheckForAdmin(f"Files/{ctx.guild.id}/Admins.txt", ctx.author.mention):  # noqa
             # make a verified role.
             self.Setup = True
             for role in ctx.guild.roles:
