@@ -9,3 +9,6 @@ Use the invite link, that way you don't need to worry about downloading anything
 2. Make sure to have python installed
 3. Run 'setup.py' and follow the instructions
 4. Run 'start.py' and the bot is online.
+
+# Errors with the Bot
+If the bot isn't sending any messages when it joins the server, or at all. Check it's permissions.
