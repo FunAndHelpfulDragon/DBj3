@@ -1,10 +1,11 @@
-#Discord Bot Jam 3
-bot files for the third discord bot jam: https://itch.io/Jam/dbj3
+# Discord Bot Jam 3 (https://itch.io/Jam/dbj3)
+These files are the bot files made for my bot for this jam.
 
-# Requirements
-python, `setup.py` file will do the rest.
+# How to run bot
+Use the invite link, that way you don't need to worry about downloading anything
 
-# Installation
+# How to run bot LOCALY
 1. Download the files
 2. Make sure to have python installed
-3. Run `python setup.py` and follow the instructions
+3. Run 'setup.py' and follow the instructions
+4. Run 'start.py' and the bot is online.
