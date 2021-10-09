@@ -87,7 +87,7 @@ class Help(commands.Cog):
                 self.Page = -1
         if self.Page == -1:
             await msg.delete()
-            await ctx.delete()
+            await ctx.message.delete()
 
     @commands.command(
         help="makers of the bot",
