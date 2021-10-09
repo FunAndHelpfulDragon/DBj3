@@ -16,7 +16,6 @@ class Settings(commands.Cog):
     async def ChangeTipEnability(self, ctx):
         if await self.File.CheckForAdmin(f"Files/{ctx.guild.id}/Admins.txt", ctx.author.mention):  # noqa
             data = ""
-            e = False
             if not self.File.CheckForFile(f"Files/{ctx.guild.id}/Settings.txt"):  # noqa
                 self.File.MakeFile(f"Files/{ctx.guild.id}", "Settings.txt", "False")  # noqa
             else:
@@ -28,13 +27,13 @@ class Settings(commands.Cog):
                     data = "False"
                 else:
                     await ctx.send("Error in saving data...")
-                    e = True
-                if not e:
-                    await self.File.WriteFile(f"Files/{ctx.guild.id}/Settings.txt", data)  # noqa
-                    if data == "False":
-                        await ctx.reply("Turned off hourly tips.")
-                    elif data == "True":
-                        await ctx.reply("Turned on hourly tips.")
+                    await ctx.send("Turning tips back on")
+                    data = "True"
+                await self.File.WriteFile(f"Files/{ctx.guild.id}/Settings.txt", data)  # noqa
+                if data == "False":
+                    await ctx.reply("Turned off hourly tips.")
+                elif data == "True":
+                    await ctx.reply("Turned on hourly tips.")
         else:
             await ctx.send("Only a trusted bot admin can change data")
 
