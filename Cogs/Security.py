@@ -58,11 +58,11 @@ class Secuirty(commands.Cog):
             await ctx.reply("You are not a bot admin!")
 
     @commands.command(
-        hidden=True,
-        enabled=True
+        help="Delete verification things.",
+        aliases=['delete']
     )
     async def Delete(self, ctx):
-        if await self.File.CheckForAdmin("Files/{ctx.guild.id}/Admins.txt", ctx.author.mention):  # noqa
+        if await self.File.CheckForAdmin(f"Files/{ctx.guild.id}/Admins.txt", ctx.author.mention):  # noqa
             try:
                 role = discord.utils.get(ctx.guild.roles, name="Verified")
                 await role.delete()
