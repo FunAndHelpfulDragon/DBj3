@@ -205,13 +205,13 @@ class Secuirty(commands.Cog):
 
     @tasks.loop(hours=1.0)
     async def send(self):
-        print("Sending...")
         for guild in self.client.guilds:
-            for channel in guild.text_channels:
-                if channel.permissions_for(guild.me).send_messages:
-                    tip = await self.GenSecurityTip()
-                    await channel.send("Security Tip of the hour: \n" + tip)  # noqa
-                    break
+            if await self.File.ReadFile(f"Files/{guild.id}/Settings.txt") == "True":  # noqa
+                for channel in guild.text_channels:
+                    if channel.permissions_for(guild.me).send_messages:
+                        tip = await self.GenSecurityTip()
+                        await channel.send("Security Tip of the hour: \n" + tip)  # noqa
+                        break
 
     @commands.command(
         help="Get a Security Tip",

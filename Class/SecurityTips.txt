@@ -5,3 +5,6 @@
 "If a data breach happens, reset your passwords as soon as possible", Data breaches can leak your password out to anyone, reset them asap to say safe.
 "Don't download everything you see", You don't know what could be a virus or not, be careful what you install.
 "Make backups of your system every now and agin", If you loose data, a backup can help you recover your data.
+"A firewall is important for when communicating with other people", having a firewall stops dangerous things coming into your network.
+Anti-virus is import for keeping your pc safe from virus, which in turn will make you more secure from hackers.
+"Don't plug an unknown device into your system.", If you do need to test a device, plug it into a through away system which is not connected to your main system at all.
