@@ -111,7 +111,6 @@ class Help(commands.Cog):
         aliases=["invite"],
     )
     async def Invite(self, ctx):
-        await ctx.send("This has been disabled for the moment")
         await ctx.send("Invite me here: https://discord.com/api/oauth2/authorize?client_id=893794121905471499&permissions=277293956112&scope=bot%20applications.commands")  # noqa
 
 
