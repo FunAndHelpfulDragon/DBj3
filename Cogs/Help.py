@@ -68,7 +68,7 @@ class Help(commands.Cog):
         )
         print(pages)
 
-        msg = await ctx.send(embed=pages[self.Page], components=[menuOptions])
+        msg = await ctx.reply(embed=pages[self.Page], components=[menuOptions])
 
         while self.Page != -1:  # while not close
             try:
@@ -102,10 +102,6 @@ class Help(commands.Cog):
             name="Dragmine149#5048",
             value="Maker of the bot"
         )
-        # embed.add_field(
-        #     name="Dqrkxz#8752",
-        #     value="Bot tester"
-        # )
         embed.set_footer(text="Thank you for usingthis bot that was made in a week for dbj3")  # noqa
         await ctx.send(embed=embed)
 
@@ -113,12 +109,10 @@ class Help(commands.Cog):
         help="Invite me",
         usage="",
         aliases=["invite"],
-        enabled=False,
-        hidden=True
     )
     async def Invite(self, ctx):
         await ctx.send("This has been disabled for the moment")
-        # await ctx.send("Invite me here: https://discord.com/api/oauth2/authorize?client_id=893794121905471499&permissions=8&scope=bot")  # noqa
+        await ctx.send("Invite me here: https://discord.com/api/oauth2/authorize?client_id=893794121905471499&permissions=277293956112&scope=bot%20applications.commands")  # noqa
 
 
 def setup(client):
