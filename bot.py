@@ -1,7 +1,6 @@
 import discord
 import os
 from discord.ext import commands
-import aiofiles
 from dislash import InteractionClient
 
 intents = discord.Intents.default()
@@ -40,17 +39,17 @@ async def on_guild_join(guild):
             await channel.send(embed=embed)
             break
     if not os.path.exists(f"Files/{guild.id}"):
+        # automatically setups guild
         os.system(f"mkdir Files/{guild.id}")
-        async with aiofiles.open(f"Files/{guild.id}/Admins.txt", 'a') as a:  # noqa
-            await a.write(str(guild.owner.mention) + ",")
+        os.system(f"echo '{str(guild.owner.mention)},' > Files/{guild.id}/Admins.txt")  # noqa
+        os.system(f"echo 'True' > Files/{guild.id}/Settings.txt")
 
 
 @client.event
 async def on_guild_remove(guild):
     print(f"Left guild: {guild.name}")
     # cleanup, the bot left why do we need the files?
-    os.system(f"rm Files/{guild.id}/Admins.txt")
-    os.system(f"rmdir Files/{guild.id}")
+    os.system(f"rm -r Files/{guild.id}")
 
 
 # Commands for cogs
