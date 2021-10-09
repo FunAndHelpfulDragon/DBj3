@@ -99,8 +99,8 @@ class Help(commands.Cog):
             colour=discord.Colour.random()
         )
         embed.add_field(
-            name="Dragmine149#5048",
-            value="Maker of the bot"
+            name="Maker of the bot",
+            value="<@467718535897022479>"
         )
         embed.set_footer(text="Thank you for usingthis bot that was made in a week for dbj3")  # noqa
         await ctx.send(embed=embed)
