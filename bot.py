@@ -21,23 +21,26 @@ async def on_ready():
 async def on_guild_join(guild):
     print(f"Joined guild: {guild.name}")
     for channel in guild.text_channels:
-        if channel.permissions_for(guild.me).send_messages:
-            embed = discord.Embed(
-                name="Welcome",
-                title="Welcome",
-                description="Thank you for inviting me",
-                colour=discord.Colour.random()
-            )
-            embed.add_field(
-                name="Information about me!",
-                value="I am a bot made for the discord bot jam 3 (itch.io/jam/dbj3) along the theme of security." +  # noqa
-                      "\n All of my commands are found in !help and the developers of me are found in !credit"  # noqa
-            )
-            # embed.set_footer(
-            #     text="Want to invite me? Do so here: https://discord.com/api/oauth2/authorize?client_id=893794121905471499&permissions=8&scope=bot"  # noqa
-            # )
-            await channel.send(embed=embed)
-            break
+        try:
+            if channel.permissions_for(guild.me).send_messages:
+                embed = discord.Embed(
+                    name="Welcome",
+                    title="Welcome",
+                    description="Thank you for inviting me",
+                    colour=discord.Colour.random()
+                )
+                embed.add_field(
+                    name="Information about me!",
+                    value="I am a bot made for the discord bot jam 3 (itch.io/jam/dbj3) along the theme of security." +  # noqa
+                          "\n All of my commands are found in +help and the developers of me are found in +credit"  # noqa
+                )
+                embed.set_footer(
+                    text="Want to invite me? Do so here: https://discord.com/api/oauth2/authorize?client_id=893794121905471499&permissions=277293956112&scope=bot%20applications.commands"  # noqa
+                )
+                await channel.send(embed=embed)
+                break
+        except discord.errors.Forbidden:
+            print(f"Can't send in {channel}")
     if not os.path.exists(f"Files/{guild.id}"):
         # automatically setups guild
         os.system(f"mkdir Files/{guild.id}")
