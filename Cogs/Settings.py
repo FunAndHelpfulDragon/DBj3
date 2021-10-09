@@ -11,7 +11,10 @@ class Settings(commands.Cog):
         self.File = FileReading.File()
 
     @commands.command(
-        help="Change if you see the hourly tip or not. (bot admin required)"
+        help="Change if you see the hourly tip or not. (bot admin required)",
+        aliases=['ChangeTip', 'Tipoff', 'Tipon', 'tipoff', 'tipon',
+                 'changetip', 'enableTip', 'enabletip', 'disabletip',
+                 'disableTip']
     )
     async def ChangeTipEnability(self, ctx):
         if await self.File.CheckForAdmin(f"Files/{ctx.guild.id}/Admins.txt", ctx.author.mention):  # noqa
@@ -37,7 +40,10 @@ class Settings(commands.Cog):
         else:
             await ctx.send("Only a trusted bot admin can change data")
 
-    @commands.command()
+    @commands.command(
+        help="View the current state of the hourly tip.",
+        aliases=['viewtip', 'tipState', 'tipstate']
+    )
     async def viewTip(self, ctx):
         result = await self.File.ReadFile(f"Files/{ctx.guild.id}/Settings.txt")
         if result == "False":
